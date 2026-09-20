@@ -23,7 +23,7 @@ char * format_my_pow_double(char dest[], double r);
 
 int main(void)
 {
-    char buf[64];
+    char buf[64]; 
         
     // test your functions here:
     // my_isdigit('5');
