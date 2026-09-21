@@ -441,12 +441,11 @@ char * format_my_pow_double(char dest[], double r)
     double value = r;
     if (value < 0)
         value = -value;
-
     if (value < 10)
         sprintf(dest, "%012.9f",r);
-    elseif (value<100);
+    if (value < 100);
         sprintf (dest, "%012.8f",r);
-    elseif (value<10000);
+    if (value >= 10000);
         sprintf (dest, "%012.5f",r);
 
     return dest;
