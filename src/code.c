@@ -57,7 +57,17 @@
 
 void clear_string(char s[], int n)
 {
+    int i = 0;
+loop:
+    if (i >= n)
+        goto done;
+    s[i] = '\0';
 
+    i++;
+    goto loop;
+
+done:
+    return;
 }
 
 
@@ -69,7 +79,12 @@ void clear_string(char s[], int n)
 // ============================================================
 
 int my_isdigit(char c)
+
 {
+    if (c >= '0' && c <= '9')
+        return 1;
+    else
+        return 0;
     return 0;
 }
 
@@ -83,7 +98,10 @@ int my_isdigit(char c)
 
 int my_islower(char c)
 {
-    return 0;
+    if (c >= 'a' && c <= 'z')
+        return 1;
+    else
+        return 0;
 }
 
 
@@ -101,9 +119,11 @@ int my_islower(char c)
 
 int my_isupper(char c)
 {
-    return 0;
+     if (c >= 'A' && c <= 'Z')
+     return 1;
+    else
+        return 0;
 }
-
 
 // ============================================================
 // my_isalpha
@@ -121,7 +141,10 @@ int my_isupper(char c)
 
 int my_isalpha(char c)
 {
-    return 0;
+    if(my_islower(c) || my_isupper(c)) // have to use other functions...
+        return 1;
+    else
+        return 0;
 }
 
 
@@ -141,7 +164,18 @@ int my_isalpha(char c)
 
 int my_isalnum(char c)
 {
-    return 0;
+    int is_alpha = my_isalpha(c);
+    int is_digit = my_isdigit(c);
+
+    int result = is_alpha + is_digit;
+
+    switch(result)
+    {
+        case 0:
+            return 0;
+        case 1:
+            return 0;
+    }
 }
 
 
@@ -161,7 +195,18 @@ int my_isalnum(char c)
 
 int my_strcmp(char a[], char b[])
 {
-    return 0;
+    int i = 0;
+
+loop:
+    if (a[i] < b[i])
+        return -1;
+    if (a[i] > b[i])
+        return 1;
+    if (a[i] == b[i])
+        return 0;
+
+    i++;
+    goto loop;
 }
 
 
@@ -179,7 +224,15 @@ int my_strcmp(char a[], char b[])
 
 int my_strchr(char s[], char c)
 {
-    return 0;
+    int i = 0;
+
+loop:
+    if (s[i] == c)
+        return i;
+    if (s[i] == '\0')
+        return -1;
+    i++;
+    goto loop;
 }
 
 
@@ -196,7 +249,18 @@ int my_strchr(char s[], char c)
 
 int my_pow(int a, int b)
 {
-    return 0;
+    int result = 1;
+    int i = 0;
+loop:
+    if (i >= b)
+        goto done;
+    result = result * a;
+
+    i++;
+    goto loop;
+done:
+    return result;
+
 }
 
 
@@ -213,7 +277,20 @@ int my_pow(int a, int b)
 
 double my_pow_double(double a, int b)
 {
-    return 0.0;
+    double result = 1.0;
+    int i = 0;
+
+loop:
+    if (i >= b)
+        goto done;
+
+    result = result * a;
+
+    i++;
+    goto loop;
+
+done:
+    return result;
 }
 
 
@@ -235,6 +312,10 @@ double my_pow_double(double a, int b)
 char * format_my_isupper(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    if (r == 1)
+        sprintf(dest, "isupper('%c') = %s", c, "true");
+    else
+        sprintf(dest, "isupper('%c') = %s", c , "false");
     return dest;
 }
 
@@ -252,6 +333,10 @@ char * format_my_isupper(char dest[], char c, int r)
 char * format_my_isalpha(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    if (r == 1)
+        sprintf(dest, "isalpha('%c') = %s", c, "true");
+    else 
+        (dest, "isalpha('%c') = %s", c, "false");
     return dest;
 }
 
@@ -269,6 +354,10 @@ char * format_my_isalpha(char dest[], char c, int r)
 char * format_my_isalnum(char dest[], char c, int r)
 {
     clear_string(dest, 64);
+    if (r == 1)
+        sprintf(dest, "isalnum('%c') = %s", c, "true");
+    else 
+        sprintf(dest, "isalnum('%c') = %s", c, "false");
     return dest;
 }
 
