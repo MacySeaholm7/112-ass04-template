@@ -1,10 +1,7 @@
-//char *AUTHOR_NAME        = (char *) "Your Name";
-//char *AUTHOR_AUTHORSHIP  = (char *) "I acknowledge that I have worked on this
-// assignment independently, except where explicitly noted and referenced.
-// Any collaboration or use of external resources has been properly cited.
-// I am fully aware of the consequences of academic dishonesty and agree to
-// abide by the university's academic integrity policy.";
-
+// Macy Seaholm
+// CSCI 112 Fall 2026
+// Programming Assignment #4
+// I declare that I am the author of this work, take full responsibility for it, and have disclosed any material external assistance.
 // code.c — student implementation only
 
 #include <stdio.h>
@@ -104,7 +101,6 @@ int my_islower(char c)
         return 0;
 }
 
-
 // ============================================================
 // my_isupper
 //
@@ -147,7 +143,6 @@ int my_isalpha(char c)
         return 0;
 }
 
-
 // ============================================================
 // my_isalnum
 //
@@ -177,7 +172,6 @@ int my_isalnum(char c)
             return 0;
     }
 }
-
 
 // ============================================================
 // my_strcmp
@@ -209,7 +203,6 @@ loop:
     goto loop;
 }
 
-
 // ============================================================
 // my_strchr
 //
@@ -228,13 +221,12 @@ int my_strchr(char s[], char c)
 
 loop:
     if (s[i] == c)
-        return i;
+        return 1;
     if (s[i] == '\0')
         return -1;
     i++;
     goto loop;
 }
-
 
 // ============================================================
 // my_pow
@@ -262,7 +254,6 @@ done:
     return result;
 
 }
-
 
 // ============================================================
 // my_pow_double
@@ -293,7 +284,6 @@ done:
     return result;
 }
 
-
 // ============================================================
 // FORMAT FUNCTIONS
 // ============================================================
@@ -319,7 +309,6 @@ char * format_my_isupper(char dest[], char c, int r)
     return dest;
 }
 
-
 // ============================================================
 // format_my_isalpha
 //
@@ -339,7 +328,6 @@ char * format_my_isalpha(char dest[], char c, int r)
         (dest, "isalpha('%c') = %s", c, "false");
     return dest;
 }
-
 
 // ============================================================
 // format_my_isalnum
@@ -361,7 +349,6 @@ char * format_my_isalnum(char dest[], char c, int r)
     return dest;
 }
 
-
 // ============================================================
 // format_my_strcmp
 //
@@ -376,10 +363,19 @@ char * format_my_isalnum(char dest[], char c, int r)
 
 char * format_my_strcmp(char dest[], int r)
 {
+    // come back and edit
     clear_string(dest, 64);
+    switch (r)
+    {
+        case -1:
+            sprintf(dest, "comparison: %s", "less");
+        case 1:
+            sprintf(dest, "comparison: %s", "equal");
+        case 0:
+            sprintf(dest, "comparison: %s", "greater");
+    }
     return dest;
 }
-
 
 // ============================================================
 // format_my_strchr
@@ -394,6 +390,11 @@ char * format_my_strcmp(char dest[], int r)
 char * format_my_strchr(char dest[], int r)
 {
     clear_string(dest, 64);
+    if (r >= 0)
+        sprintf (dest,"found at: %d",r);
+    else
+        sprintf (dest, "not found");
+
     return dest;
 }
 
@@ -412,6 +413,7 @@ char * format_my_strchr(char dest[], int r)
 char * format_my_pow(char dest[], int r)
 {
     clear_string(dest, 64);
+    sprintf(dest, "pow = %-12d", r);
     return dest;
 }
 
@@ -436,5 +438,16 @@ char * format_my_pow(char dest[], int r)
 char * format_my_pow_double(char dest[], double r)
 {
     clear_string(dest, 64);
+    double value = r;
+    if (value < 0)
+        value = -value;
+
+    if (value < 10)
+        sprintf(dest, "%012.9f",r);
+    elseif (value<100);
+        sprintf (dest, "%012.8f",r);
+    elseif (value<10000);
+        sprintf (dest, "%012.5f",r);
+
     return dest;
 }
