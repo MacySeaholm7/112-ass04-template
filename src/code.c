@@ -169,7 +169,7 @@ int my_isalnum(char c)
         case 0:
             return 0;
         case 1:
-            return 0;
+            return 1;
     }
 }
 
@@ -196,7 +196,7 @@ loop:
         return -1;
     if (a[i] > b[i])
         return 1;
-    if (a[i] == b[i])
+    if (a[i] == '\0')
         return 0;
 
     i++;
@@ -221,7 +221,7 @@ int my_strchr(char s[], char c)
 
 loop:
     if (s[i] == c)
-        return 1;
+        return i;
     if (s[i] == '\0')
         return -1;
     i++;
@@ -325,7 +325,7 @@ char * format_my_isalpha(char dest[], char c, int r)
     if (r == 1)
         sprintf(dest, "isalpha('%c') = %s", c, "true");
     else 
-        (dest, "isalpha('%c') = %s", c, "false");
+        sprintf(dest, "isalpha('%c') = %s", c, "false");
     return dest;
 }
 
@@ -369,10 +369,13 @@ char * format_my_strcmp(char dest[], int r)
     {
         case -1:
             sprintf(dest, "comparison: %s", "less");
-        case 1:
-            sprintf(dest, "comparison: %s", "equal");
+            break;
         case 0:
+            sprintf(dest, "comparison: %s", "equal");
+            break;
+        case 1:
             sprintf(dest, "comparison: %s", "greater");
+            break;
     }
     return dest;
 }
@@ -439,13 +442,23 @@ char * format_my_pow_double(char dest[], double r)
 {
     clear_string(dest, 64);
     double value = r;
+
     if (value < 0)
         value = -value;
+
     if (value < 10)
         sprintf(dest, "%012.9f",r);
-    if (value < 100);
+
+    if (value >= 10 && value < 100)
         sprintf (dest, "%012.8f",r);
-    if (value >= 10000);
+
+    if (value >= 100 && value < 1000)
+        sprintf (dest, "%012.7f",r);
+
+    if (value >= 1000 && value < 10000)
+        sprintf (dest, "%012.6f",r);
+
+     if (value >= 10000)
         sprintf (dest, "%012.5f",r);
 
     return dest;
